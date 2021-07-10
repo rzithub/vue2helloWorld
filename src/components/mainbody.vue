@@ -1,6 +1,5 @@
 <template>
   <div id='books'>
-    <slot name="2"></slot>
     <ul>
       <li v-for="book in books" :key="book.name" v-on:click="book.show=!book.show">
         <h2 v-show="!book.show">{{book.name}}</h2>
@@ -15,14 +14,17 @@
 export default {
   //props:['books'], basic way
   props:{
-    books:{
-      Type:Array,
-      required:true
-    }
   },
   data(){
     return {
-  
+      books:[
+        {name:'کلیدر',author:'محمود دولت آبادی',show:false},
+        {name:'زمین سوخته',author:'احمد محمود',show:false},
+        {name:'شازده احتجاب',author:'هوشنگ گلشیری',show:false},
+        {name:'از رنجی که میبریم',author:'جلال آل احمد',show:false},
+        {name:'سووشون',author:'سیمین دانش‌ور',show:  false},
+        {name:'چراغ ها را من خاموش می‌کنم',author:'زویا پیرزاد',show:  false},
+      ]
     }
   },
   methods:{

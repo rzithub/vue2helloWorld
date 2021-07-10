@@ -2,11 +2,14 @@
     <div v-myTheme:column=blogWidth id='myBlog'>
         <button @click='changeWidth'>Change Width</button>
         <input type="text" v-model="search" placeholder="serch box"/>
+          
         <div v-for="post in filteredBlog" id='blog'>
-            <h2 id='title' v-myColor>{{post.title | toUppercase |snippet20}}</h2>
+            <router-link v-bind:to="'/showblog/'+post.id" exact id="linkblog"> <h2 id='title' v-myColor>{{post.title | toUppercase |snippet20}}</h2>
+             </router-link>
             <p id='content' v-myColor>{{post.body|snippet100}}</p>
             <hr>
         </div>
+       
     </div>
     
 </template>
@@ -65,6 +68,7 @@ directives:{
     'myColor':{
         bind(el,binding,vnode){
         el.style.color = '#'+ Math.random().toString().slice(2,8);
+        el.style.textDecorationLine = 'none';
   }
     },
     'myTheme':{
@@ -100,17 +104,22 @@ mixins:[serachMixin]
     border: solid 0px;
     padding: 10px;
     margin: 10px;
+    text-decoration: none;
     /* max-width: 80%; */
     /* margin-left: 10%; */
 }
 #title{
     /* color: brown; */
     text-align: center;
+    text-decoration-line: none;
 }
 
 #content{
     color: darkblue;
 }
 #myBlog{
+}
+linkblog{
+    text-decoration: none;
 }
 </style>
