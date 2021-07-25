@@ -17,79 +17,80 @@
 <script>
 
 import serachMixin from '../../mixins/searchMixin';
+import axios from 'axios'
 
 export default {
 
     data(){
         return{
+            blog1:[],
             blog:[],
             blogWidth:'wide',
             search: ''
         }
     },
-methods:{
-    changeWidth: function(){
-        if(this.blogWidth == 'wide'){
-            this.blogWidth = 'narrow'
-        } else if (this.blogWidth == 'narrow'){
-            this.blogWidth = 'wide'
+    methods:{
+        changeWidth: function(){
+            if(this.blogWidth == 'wide'){
+                this.blogWidth = 'narrow'
+            } else if (this.blogWidth == 'narrow'){
+                this.blogWidth = 'wide'
+            }
+            console.log('blog width status is: '+ this.blogWidth)
+            this.$forceUpdate();
         }
-        console.log('blog width status is: '+ this.blogWidth)
-        this.$forceUpdate();
-    }
 
-},
-created(){
-    this.$http.get('https://jsonplaceholder.typicode.com/posts').then(function(data){
-        //console.log(data.body.slice(0,10))
-        // console.log(data)
-        // console.log(data.body)
-        // console.log(data.header)
-        // console.log(data.bodyText)
-        this.blog = data.body.slice(0,5)
-    })
-},
-computed:{
-   
-   
-},
-filters:{
-    toUppercase(value){
-        return value.toUpperCase();
     },
-    snippet20(value){
-        return value.slice(0,20)+'...';
+    created(){
+        console.log("get some data ")
+        axios.get('http://jsonplaceholder.typicode.com/posts/').then(response => {
+            console.log(response.data)
+            console.log(response.status)
+            this.blog = response.data
+        })
+        
     },
-    'snippet100'(value){
-        return value.slice(0,100)+'...';
+    computed:{
+    
+    
+    },
+    filters:{
+        toUppercase(value){
+            return value.toUpperCase();
+        },
+        snippet20(value){
+            return value.slice(0,20)+'...';
+        },
+        'snippet100'(value){
+            return value.slice(0,100)+'...';
+        }
+    },
+    directives:{
+        'myColor':{
+            bind(el,binding,vnode){
+            el.style.color = '#'+ Math.random().toString().slice(2,8);
+            el.style.textDecorationLine = 'none';
     }
-},
-directives:{
-    'myColor':{
-        bind(el,binding,vnode){
-        el.style.color = '#'+ Math.random().toString().slice(2,8);
-        el.style.textDecorationLine = 'none';
-  }
+        },
+        'myTheme':{
+            bind(el,binding,vnode){
+            if(binding.value == 'wide'){
+                el.style.maxWidth = '1000px'
+                el.style.marginLeft= '10%'
+            } else if(binding.value = 'narrow'){
+                el.style.maxWidth = '500px'
+                el.style.marginLeft= '15%'
+                el.style.marginRight= '15%'
+                el.style.marginTop= '5%'
+            }
+            if(binding.arg == 'column'){
+                el.style.background= '#ddd';
+                el.style.padding= '10px';
+            }
+            }
+        }
     },
-    'myTheme':{
-        bind(el,binding,vnode){
-        if(binding.value == 'wide'){
-            el.style.maxWidth = '1000px'
-            el.style.marginLeft= '10%'
-        } else if(binding.value = 'narrow'){
-            el.style.maxWidth = '500px'
-            el.style.marginLeft= '15%'
-            el.style.marginRight= '15%'
-            el.style.marginTop= '5%'
-        }
-        if(binding.arg == 'column'){
-            el.style.background= '#ddd';
-            el.style.padding= '10px';
-        }
-        }
-    }
-},
-mixins:[serachMixin]     
+    mixins:[serachMixin]     
 
 }
 

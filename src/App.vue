@@ -3,7 +3,7 @@
     <!-- v-on:anEvent="splitTitle($event)" -->
     <appheader v-bind:title="title" v-bind:subtitle="subtitle" ></appheader>
       
-    <router-view></router-view>
+    <router-view/>
     <!-- <mainbody></mainbody> -->
 
     <!-- <component v-bind:is="component" ></component> -->
@@ -22,6 +22,7 @@
     </keep-alive> -->
 
     <!-- <showblog> </showblog> -->
+ 
   
     <appfooter v-bind:title="title" v-show="appfooter"></appfooter>
 
@@ -37,8 +38,9 @@ export default {
 
   components:{
     'appheader':appheader,
-    'appfooter': appfooter
+    'appfooter': appfooter,
       },
+
   data(){
   return {
       title: 'Ask What You Want!',

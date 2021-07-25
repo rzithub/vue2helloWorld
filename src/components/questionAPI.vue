@@ -3,7 +3,7 @@
     <div>
         <div>
         <ul>
-            <li v-for="currency in info" > {{currency.code}}: <span v-html="currency.symbol"></span>{{currency.rate}} </li>
+            <li v-for="currency in info" v-bind:key="currency.code" > {{currency.code}}: <span v-html="currency.symbol"></span>{{currency.rate}} </li>
         </ul>
         </div>
         
@@ -62,6 +62,10 @@ export default {
 </script>
 
 <style scoped>
+ul{
+    text-decoration: none;
+    list-style-type: none;
+}
 li {
     background-color: dodgerblue;
     text-align: center;
